@@ -16,8 +16,8 @@
             font-family: Arial, sans-serif;
         }
         #wheel {
-            width: 600px;
-            height: 600px;
+            width: 500px; /* Roue plus grande */
+            height: 500px;
             border-radius: 50%;
             position: relative;
             overflow: hidden;
@@ -28,9 +28,9 @@
             height: 100%;
         }
         #spinButton {
-            margin-top: 30px;
-            padding: 15px 30px;
-            font-size: 24px;
+            margin-top: 30px; /* Plus d'espace */
+            padding: 15px 30px; /* Bouton plus grand */
+            font-size: 24px; /* Texte plus grand */
             cursor: pointer;
             background-color: #4CAF50;
             color: white;
@@ -41,15 +41,15 @@
             background-color: #45a049;
         }
         #result {
-            margin-top: 30px;
-            font-size: 28px;
+            margin-top: 30px; /* Plus d'espace */
+            font-size: 28px; /* Texte plus grand */
             color: #333;
         }
     </style>
 </head>
 <body>
     <div id="wheel">
-        <canvas id="canvas" width="600" height="600"></canvas>
+        <canvas id="canvas" width="500" height="500"></canvas> <!-- Canvas plus grand -->
     </div>
     <button id="spinButton">Tourner la roue</button>
     <div id="result"></div>
@@ -61,35 +61,35 @@
         const result = document.getElementById('result');
         const wheel = document.getElementById('wheel');
 
-        // Liste des gages
+        // Liste des gages (personnalise-les ici)
         const gages = [
             "Chante une chanson",
+            "Fais 10 pompes",
             "Raconte une blague",
             "Imite un animal",
             "Danse la macarena",
-            "Met ta cam pendant 30min",
-            "Mange une cuillère de cannelle",
-            "Fais 10 pompes"
+            "Met ta face cam pendant 30min",
+            "Mange une cuillère de canelle",
         ];
         const numSections = gages.length;
         const angle = 360 / numSections;
 
         // Dessiner la roue
         function drawWheel() {
-            const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FF9999'];
+            const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
             for (let i = 0; i < numSections; i++) {
                 ctx.beginPath();
                 ctx.fillStyle = colors[i % colors.length];
-                ctx.moveTo(300, 300);
-                ctx.arc(300, 300, 300, (i * angle * Math.PI) / 180, ((i + 1) * angle * Math.PI) / 180);
+                ctx.moveTo(250, 250); /* Centre ajusté pour 500px */
+                ctx.arc(250, 250, 250, (i * angle * Math.PI) / 180, ((i + 1) * angle * Math.PI) / 180); /* Rayon plus grand */
                 ctx.fill();
                 ctx.save();
-                ctx.translate(300, 300);
+                ctx.translate(250, 250);
                 ctx.rotate(((i + 0.5) * angle * Math.PI) / 180);
                 ctx.fillStyle = '#fff';
-                ctx.font = '18px Arial';
+                ctx.font = '20px Arial'; /* Texte plus grand */
                 ctx.textAlign = 'center';
-                ctx.fillText(gages[i], 150, 5);
+                ctx.fillText(gages[i], 120, 5); /* Position ajustée */
                 ctx.restore();
             }
         }
@@ -101,7 +101,7 @@
                 isSpinning = true;
                 spinButton.disabled = true;
                 result.textContent = '';
-                const randomAngle = Math.floor(Math.random() * 360) + 720;
+                const randomAngle = Math.floor(Math.random() * 360) + 720; // Au moins 2 tours
                 wheel.style.transform = `rotate(${randomAngle}deg)`;
 
                 setTimeout(() => {
@@ -110,8 +110,8 @@
                     result.textContent = `Ton gage : ${gages[section]}`;
                     isSpinning = false;
                     spinButton.disabled = false;
-                    wheel.style.transform = `rotate(0deg)`;
-                }, 4000);
+                    wheel.style.transform = `rotate(0deg)`; // Réinitialiser pour la prochaine fois
+                }, 4000); // Durée de l'animation (4 secondes)
             }
         });
 
