@@ -80,11 +80,11 @@
             for (let i = 0; i < numSections; i++) {
                 ctx.beginPath();
                 ctx.fillStyle = colors[i % colors.length];
-                ctx.moveTo(550, 550); /* Centre ajusté pour 500px */
-                ctx.arc((550, 550, 550, (i * angle * Math.PI) / 180, ((i + 1) * angle * Math.PI) / 180); /* Rayon plus grand */
+                ctx.moveTo(450, 450); /* Centre ajusté pour 500px */
+                ctx.arc((450, 450, 450, (i * angle * Math.PI) / 180, ((i + 1) * angle * Math.PI) / 180); /* Rayon plus grand */
                 ctx.fill();
                 ctx.save();
-                ctx.translate(550, 550);
+                ctx.translate(450, 450);
                 ctx.rotate(((i + 0.5) * angle * Math.PI) / 180);
                 ctx.fillStyle = '#fff';
                 ctx.font = '20px Arial'; /* Texte plus grand */
