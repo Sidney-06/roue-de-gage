@@ -67,8 +67,7 @@
             "Raconte une blague",
             "Imite un animal",
             "Danse la macarena",
-            "Danse la macarena",
-            "Met ta cam pendant 30min",
+            "Met ta face cam pendant 30min",
             "Mange une cuillère de canelle",
             "Fait 10 pompes",
         ];
@@ -81,11 +80,11 @@
             for (let i = 0; i < numSections; i++) {
                 ctx.beginPath();
                 ctx.fillStyle = colors[i % colors.length];
-                ctx.moveTo(350, 350); /* Centre ajusté pour 500px */
-                ctx.arc(350, 350, 350, (i * angle * Math.PI) / 180, ((i + 1) * angle * Math.PI) / 180); /* Rayon plus grand */
+                ctx.moveTo(550, 550); /* Centre ajusté pour 500px */
+                ctx.arc((550, 550, 550, (i * angle * Math.PI) / 180, ((i + 1) * angle * Math.PI) / 180); /* Rayon plus grand */
                 ctx.fill();
                 ctx.save();
-                ctx.translate(350, 350);
+                ctx.translate(550, 550);
                 ctx.rotate(((i + 0.5) * angle * Math.PI) / 180);
                 ctx.fillStyle = '#fff';
                 ctx.font = '20px Arial'; /* Texte plus grand */
