@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roue de Gage</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #wheel {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 4s ease-out;
+        }
+        #wheel canvas {
+            width: 100%;
+            height: 100%;
+        }
+        #spinButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #spinButton:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="wheel">
+        <canvas id="canvas" width="300" height="300"></canvas>
+    </div>
+    <button id="spinButton">Tourner la roue</button>
+    <div id="result"></div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const spinButton = document.getElementById('spinButton');
+        const result = document.getElementById('result');
+        const wheel = document.getElementById('wheel');
+
+        // Liste des gages (personnalise-les ici)
+        const gages = [
+            "Chante une chanson",
+            "Fais 10 pompes",
+            "Raconte une blague",
+            "Imite un animal",
+            "Danse pendant 10 secondes",
+            "montre ta cam",
+            "Parle en faisant l'accent marseillait",
+        ];
+        const numSections = gages.length;
+        const angle = 360 / numSections;
+
+        // Dessiner la roue
+        function drawWheel() {
+            const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
+            for (let i = 0; i < numSections; i++) {
+                ctx.beginPath();
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.moveTo(150, 150);
+                ctx.arc(150, 150, 150, (i * angle * Math.PI) / 180, ((i + 1) * angle * Math.PI) / 180);
+                ctx.fill();
+                ctx.save();
+                ctx.translate(150, 150);
+                ctx.rotate(((i + 0.5) * angle * Math.PI) / 180);
+                ctx.fillStyle = '#fff';
+                ctx.font = '16px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(gages[i], 70, 5);
+                ctx.restore();
+            }
+        }
+
+        // Tourner la roue
+        let isSpinning = false;
+        spinButton.addEventListener('click', () => {
+            if (!isSpinning) {
+                isSpinning = true;
+                spinButton.disabled = true;
+                result.textContent = '';
+                const randomAngle = Math.floor(Math.random() * 360) + 720; // Au moins 2 tours
+                wheel.style.transform = `rotate(${randomAngle}deg)`;
+
+                setTimeout(() => {
+                    const finalAngle = randomAngle % 360;
+                    const section = Math.floor((360 - finalAngle) / angle) % numSections;
+                    result.textContent = `Ton gage : ${gages[section]}`;
+                    isSpinning = false;
+                    spinButton.disabled = false;
+                    wheel.style.transform = `rotate(0deg)`; // Réinitialiser pour la prochaine fois
+                }, 4000); // Durée de l'animation (4 secondes)
+            }
+        });
+
+        // Initialiser la roue
+        drawWheel();
+    </script>
+</body>
+</html>
